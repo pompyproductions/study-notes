@@ -1,0 +1,140 @@
+HTML+CSS NOTES
+---
+HTML Tags
+
+<div> and <span> do the same thing, but <div> is a block and <span> is inline.
+For example, if you want to color a part of a paragraph, you use <span style="...">
+whereas you want a box to put other elements in, you use <div>.
+
+use <a href="..."> for links
+add target="_blank" for new page/tab
+
+
+---
+Selectors
+
+type (div, p etc)
+.class (.my-custom-class)
+#id (#my-custom-id)
+
+concatenation means all of them are true (p.class1.class2)
+if there are spaces, child/parent relationship (div p means the p element nested in div)
+
+use IDs sparingly!
+camelCase etc is not illegal, but keep things lowercase for compatibility's sake!
+
+you can group selectors together to not have to rewrite code:
+div p, div button, div li {
+    font-size: 24px;
+}
+then you differentiate further down, through specificity.
+
+
+---
+Box model
+
+padding, margin, border:
+margin is outside the box, the offset from parent box
+padding is inside the box, the offset for content to live in
+
+not to forget that the content itself has size.
+setting width and height manually will change the size of the content
+(the background-color colored part)
+
+margin is SHARED BETWEEN ELEMENTS
+if you have two adjacent objects with 60px margin,
+the total margin between them is still 60px
+
+box-sizing:
+content-box = height and width refer to content only (then padding and border are added)
+border-box = height and width refer to content + padding*2 + border*2 (whole package)
+
+boilerplate for global border-box:
+  html {
+    box-sizing: border-box;
+  }
+  *, *::before, *::after {
+    box-sizing: inherit;
+  }
+
+centering text in given width:
+  width: 500px;
+  margin: 0 auto;
+
+
+---
+Display types
+
+there are inner and outer display types.
+Outer display: determines how the elements outside the box are pushed away.
+Block and inline boxes.
+
+<h1>, <p> etc are block boxes, which go to a new line and push other things away
+defined by attribute display: block
+
+<em>, <strong> etc are inline boxes, where width and height don't apply. 
+Horizontal margin etc apply and push other inline elements away.
+Vertical margin etc apply but don't push any elements away.
+
+Inner display: determines how the elements inside the box are laid out.
+Flex, grid displays.
+
+
+---
+Flex
+
+flex-grow, flex-shrink, flex-basis are for FLEX ITEMS
+display, gap, justify-content are for FLEX CONTAINERS
+
+flex-grow is coefficient of expansion, 0 means it doesn't grow
+
+to change main axis, flex-direction (row, column, or their reverse variants).
+
+justify-content aligns items across main axis;
+space-around, space-evenly, space-between.
+
+align-items aligns across cross axis;
+stretch; flex-start, flex-end.
+do not confuse with align-content!
+
+align-content only works with multi-line flex. (wrapped content)
+all wrapped lines are aligned with same properties as justify.
+
+flex-wrap defaults to nowrap.
+if wrapping is enabled, every new line is like a new flex container of its own,
+that does not reference content from other lines
+
+consider using flex: 1 0 [set value] when flex-wrapping items, especially if they have text.
+This way you allow paragraphs to start wrapping a bit before sending them to a second row of flex
+
+list of links on header:
+header ul {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+
+---
+Variable Fonts
+
+
+---
+CSS Shorthands
+
+flex: flex-grow[1] flex-shrink[2] flex-basis[?] (0 0 auto, 1 1 0%, etc)
+flex (just 1 number): evaluates to <number> 1 0%
+flex (just width): evaluates to 1 1 <width> (e.g. 10%, 2vw...)
+flex (two values): <number> <number | width> 
+flex: auto (1 1 auto), initial (0 1 auto), none (0 0 auto)
+
+gap: row-gap column-gap 
+
+margin: TOP RIGHT BOTTOM LEFT
+margin: TOP HORIZONTAL BOTTOM
+margin: VERTICAL HORIZONTAL
+margin: EVERYWHERE
+
+shadow: x y blur spread color, x y blur spread color, ...

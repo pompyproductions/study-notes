@@ -1,0 +1,35 @@
+BOILERPLATES
+---
+HTML:Generic
+
+hit ! and enter for generic boilerplate
+!- for comment
+add link:s and enter for stylesheet
+<script src="script.js"></script>
+
+
+---
+HTML:Fonts
+
+for any font:
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+then:
+<link href="https://fonts.googleapis.com/css2?family=CHANGETHIS&display=swap" rel="stylesheet">
+swap out the "CHANGETHIS" for the fonts you want
+you can use one link for each family if it makes it cleaner
+
+monospace:
+
+archivo:
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,200:0,400;0,600;1,200;1,400;1,600;1,900&display=swap" rel="stylesheet"> 
+
+
+---
+CSS:Generic
+
+
+---
+CSS:Fonts
+

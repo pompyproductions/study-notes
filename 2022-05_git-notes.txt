@@ -1,0 +1,161 @@
+GIT NOTES
+---
+Installation
+
+through apt:
+sudo apt update
+sudo apt upgrade
+
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+sudo apt install git
+
+then verify with git --version
+
+
+---
+Config & Credentials
+
+git config --global --edit
+this will open in the configured editor (core.editor)
+
+git config --global user.name "blabla"
+git config --global user.email "blabla@lablab.com"
+git config --global color.ui auto
+git config --global core.editor "code --wait"
+
+default branch should be main, not master:
+git config --global init.defaultBranch main
+
+to check them later on:
+git config --get (...)
+
+ssh setup: (also on https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+check if you have an ssh key already by ls ~/.ssh/id_ed25519.pub
+if not, ssh-keygen -t ed25519 -C [email address];
+then on github navigate to Settings > SSH and[...] > new ssh key
+cat [ssh directory], then copy paste (including email)
+
+verify that ssh works correctly:
+ssh -T git@github.com
+verify the fingerprint that comes up in the prompt:
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints
+if it is correct, proceed
+
+
+---
+Basic Git Workflow
+
+Three states of Git:
+Working directory | Staging area | Repository
+(modified)          (staged)       (committed)
+
+git status to check the situation
+git add . will add all files to staging area (otherwise just type file name)
+git commit on its own will open the text editor for the message.
+
+if it's a short commit with just a subject you could add -m "commit message"
+or also directly git commit -am "message" to not go through staging
+
+git log to check commits
+add --oneline to see just the subjects of the commits
+-<number> will limit the display to that many commits
+    (git slog, alias by yours truly)
+    more about pretty logs below
+
+git push will update the server
+git push origin main would be the long version, in case of branches
+
+code . will open the directory in new window
+-a argument adds it to the last active window!
+
+
+---
+New Repository
+
+create a new repo on github (enable README.md)
+navigate to Code (green button) > Clone > SSH, copy the key
+(git@github.com:USER-NAME/REPOSITORY-NAME.git)
+
+then go to terminal, cd into wherever you want your repo folder, 
+then git clone [paste key]. git status to check if all good (also git remote -v)
+
+alternatively, create a new repo locally (mkdir, git init, touch README.md)
+then create new repo
+then import repo to github
+
+
+---
+Pretty logs
+
+git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+^ is what i got from the internet
+
+improvements: 
+    never mind the graph
+    make the date YYYY-MM-DD (%cs instead of %cr)
+    skip the hash? maybe put date there
+    <%an> in the end is cool (author name)
+
+so it looks like this:
+    git log --pretty=format:"%C(magenta)%cs |%Creset⁠%C(bold yellow)%d%Creset %s %C(red)<%al>%Creset" --abbrev-commit
+
+from the manual;
+    You can set the color to any of the following values: normal, black, red, green, yellow, blue, magenta, cyan, or white. 
+    If you want an attribute like bold in the previous example, 
+    you can choose from bold, dim, ul (underline), blink, and reverse (swap foreground and background).
+
+
+---
+Git Diff
+
+git diff --help gives a lot of insight
+but mainly you can diff in different states
+if you staged all files but want to do a quick check, do git diff --cached
+git diff on its own is for unstaged changes, i guess?
+
+$ git diff HEAD~1 HEAD
+this will give you what you changed on your last commit to HEAD
+
+
+---
+Rollback and modification
+
+Rollback commands: RESTORE, RESET, REVERT
+
+$ git restore index.html discards uncommitted changes to a file
+you can also restore a specific historic revision with --source [id | ^ | branch~#]
+$ git restore --staged *.css : unstages a file (removes from staging area/index)
+
+$ git commit --amend will let you edit the last commit
+if you staged some changes, --amend will add those to the previous commit
+adding --no-edit will not make you go through the commit message
+
+
+---
+Misc Git Notes
+
+commits should be concise and give CONTEXT.
+The diff can show you what changed, but only the commit can tell you why.
+
+atomic commits in every meaningful code change.
+if you're manipulating many files at once, consider leaving some out during staging.
+don't just automatically git add . everytime!
+
+the more you care about the log, the more it actually gets useful
+and vice versa, vicious cycle of not caring and not using it
+
+you can have both subject and body on a commit message,
+separate the subject with a blank line (50 chars tops)
+so that git log --oneline gives you just the subjects
+
+use IMPERATIVE TONE for subject and capitalize ("Fix bug" and not "fixed bug.")
+
+Git ignore:
+    create a file (.gitignore) on the root
+    add all the files/directories/etc you want GIT to ignore
+    simplest form: just the file (e.g. NOHUP.out)
+    an entire directory could be selected by using forward slash (my_directory/)
+    
+
+

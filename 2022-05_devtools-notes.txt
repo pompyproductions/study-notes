@@ -1,0 +1,37 @@
+CHROME DEVTOOLS NOTES
+---
+Video notes
+
+https://developer.chrome.com/docs/devtools/overview/
+
+Right click + inspect is easier than f12 + looking around to find the element
+
+Ctrl+shift+p for command line
+> dock right/bottom
+> undock
+> animations
+> dark theme
+> screenshot (various alts)
+
+Styles pane gives you the whole cascade
+under the Computed pane you have a simpler one
+
+you can SEARCH THE DOM TREE (ctrl f):
+strings (just content)
+selectors (p[color="black"])
+xpath (//section/h2)
+
+edit CSS on the fly to prototype
+rclick and inspect an element, then change some css on top of cascade
+you can auto-complete by value (bold, black, italic, 10px...)
+
+toggle element state (:hov button in styles panel)
+also add classes (.cls at same place)
+
+you can click the color squares in styles
+it opens up a color picker and also shows contrast ratio
+EXPAND IT FOR READABILITY RECOMMENDATIONS!
+
+right click > copy > copy styles (from another page)
+and then paste it into your styles, boom it's the same!
+

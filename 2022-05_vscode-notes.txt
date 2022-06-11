@@ -1,0 +1,44 @@
+VSCODE NOTES
+---
+General navigation
+
+[UD]=user defined
+
+[UD] HTML comment snippet: !-, cmt, comment
+HTML boilerplate: !
+HTML doctype: !!!
+
+Alt+ArrowKeys carry the line up and down (useful when reordering)
+
+ctrl+shift+p to access command palette
+
+
+---
+Refactoring code across files
+
+navigate to Edit > Replace in Files
+there's an option to "preserve case" (not to confuse with match case)
+there you can audit them one by one and apply changes
+
+then you can also git diff to see if all is good (refer to git-notes)
+
+
+---
+Custom Snippets
+
+navigate to File > Preferences > User Snippets
+find the language you're looking for (or create one)
+
+format:
+	"HTML Comment": {
+		"prefix": ["cmt", "comment", "!-"],
+		"body": ["<!--$1-->"],
+		"description": "An HTML comment."
+    }
+
+where the first line is the title that pops up,
+prefixes are the keywords that trigger the snippet,
+body is what's actually inserted,
+and description shows up on the tooltip.
+
+$1, $2 etc are cursor locations.

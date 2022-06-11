@@ -1,0 +1,128 @@
+BASH NOTES
+---
+Basic Navigation
+
+ls lists files in dir  
+just ls will print current dir list  
+but you can do ls ../dir/another-dir/etc
+
+arguments;
+-a also prints hidden files  
+-l lists in detailed strings, 1 per line  
+-1 (one) lists 1 file/dir per line, short ver
+-R prints all subfolders too (recursive)
+you can chain parameters (-1a, -la...)
+
+.. indicates parent dir  
+. indicates current dir (apparently means "all in working dir")
+also used in git add .
+~ indicates root dir
+
+pwd print working directory
+cd change working directory  (cd on its own goes to home dir)
+mkdir creates new directory  
+
+generally you can do --help when stuck
+
+&& or ; to chain commands (understand && better)
+
+rm is to delete files
+can't delete directories UNLESS -r (recursive)
+there's also -f to brute force stuff
+
+mv renames and moves files
+mv *.txt ~/TextFiles into TextFiles directory in root
+
+cp copies file content,
+if second argument doesn't exist it creates a new file (copy paste)
+
+touch creates new empty files
+
+copy-paste: CTRL+SHIFT+C, CTRL+SHIFT+V
+
+
+---
+Processes
+
+top is like a "process task manager"
+(htop is an improved version installed through sudo apt)
+it is a process on its own that you can quit by hitting q
+
+CTRL+C terminates a process
+CTRL+Z pauses a process
+bg and fg resume the paused process (as bg or fg)
+
+jobs command lists all working bg processes
+kill %[number] terminates the process
+
+nohup ignores the SIGHUP signal, 
+so that the program doesn't terminate when the terminal closes
+if you didn't do nohup, you can still disown
+
+nohup.log is still annoying since it keeps popping everywhere
+so you can ignore output by throwing it to the "black hole":
+[example command] > /dev/null 
+(specific Linux device that does nothing when written to)
+
+also remember that the redirection operator redirects STDOUT by default
+so redirect the STDERR to it as well:
+[command] > /dev/null 2>&1
+
+ps shows process history(?), not sure what it stands for
+
+.: Signals (Process pt.2)
+CTRL+C sends SIGINT
+CTRL+Z sends SIGSTP
+NOHUP ignores SIGHUP
+KILL sends TERM by default, by passing -l you can see all possible signals
+:.
+
+
+---
+Programs
+
+code [folder|file](VSCode)
+firefox [file]
+shotwell [file](image viewer)
+snap install [program](installer)
+
+
+---
+Installing stuff
+
+sudo for admin privileges (stands for SuperUser DO)
+("do" also exists)
+
+fonts;
+unzip the file (unzip or tar commands)
+then mv *.ttf ~/.fonts
+
+apt
+snap
+
+deb;
+dpkg -i [file]
+-i stands for install
+
+
+---
+Aliases
+
+alias command on its own prints defined aliases
+
+create and delete an alias:
+alias testAlias="pwd" (creates alias)
+testAlias (runs pwd)
+unalias testAlias (deletes alias)
+
+~/.bash_aliases (where custom aliases are saved)
+$ source ~/.bash_aliases (to reload the aliases after modifying)
+
+alias indep='x(){
+    if [[ -z $2 ]];
+    then
+        $1 > /dev/null 2>&1 & disown
+    else
+        $1 $2 > /dev/null 2>&1 & disown
+    fi
+}; x'
