@@ -12,6 +12,7 @@ Alt+ArrowKeys carry the line up and down (useful when reordering)
 
 ctrl+shift+p to access command palette
 
+!!! CTRL+K D compares current unsaved version with latest save
 
 ---
 Refactoring code across files

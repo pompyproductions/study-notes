@@ -4,26 +4,39 @@ HTML:Generic
 
 hit ! and enter for generic boilerplate
 !- for comment
-add link:s and enter for stylesheet
+type link:css and enter for stylesheet
+type script:src and enter
 <script src="script.js"></script>
 
 
 ---
-HTML:Fonts
+-- HTML:Fonts
+-- (Variable)
+
+API:
+https://developers.google.com/fonts/docs/css2
 
 for any font:
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-then:
-<link href="https://fonts.googleapis.com/css2?family=CHANGETHIS&display=swap" rel="stylesheet">
-swap out the "CHANGETHIS" for the fonts you want
-you can use one link for each family if it makes it cleaner
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100...800;1,100...800&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> 
 
-monospace:
+DISPLAY=SWAP important for fallback
 
-archivo:
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,200:0,400;0,600;1,200;1,400;1,600;1,900&display=swap" rel="stylesheet"> 
+
+-- HTML:Fonts
+-- (Static)
+
+<link href="https://fonts.googleapis.com/css2?family=Change+This:ital,wght@#,###;#,###&display=swap" rel="stylesheet">
+
+swap out:
+"Change+This" for the family you want (e.g. Source+Code+Pro)
+remove ital and the #,s for just upright
+
+
 
 
 ---

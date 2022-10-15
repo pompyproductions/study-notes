@@ -52,6 +52,21 @@ typeof() gives type, === compares value AND type
 
 
 ---
+Conventions
+
+let/const:
+    camelCase variables
+    SCREAMING_SNAKE constants
+
+common function syntax:
+    showMessage(..)     // shows a message
+    getAge(..)          // returns the age (gets it somehow)
+    calcSum(..)         // calculates a sum and returns the result
+    createForm(..)      // creates a form (and usually returns it)
+    checkPermission(..) // checks a permission, returns true/false
+
+
+---
 String Manipulation
 
 \ is your escape character as always
@@ -91,19 +106,24 @@ txt1 = txt1.concat(" ", txt2); returns new string
 
 
 ---
-Conventions
+Array Manipulation
 
-let/const:
-    camelCase variables
-    SCREAMING_SNAKE constants
+.includes(): has, contains element
 
-common function syntax:
-    showMessage(..)     // shows a message
-    getAge(..)          // returns the age (gets it somehow)
-    calcSum(..)         // calculates a sum and returns the result
-    createForm(..)      // creates a form (and usually returns it)
-    checkPermission(..) // checks a permission, returns true/false
+.splice(): for removing with index
 
+.map(): returns a new array with same length, but "extracting" whatever data you need
+
+.filter(): returns a new array with different length, filtering out the ones that don't
+match the criteria
+
+.reduce(): returns a new array while boiling down information, good for iterating
+
+.every()/.some(): returns true if every/any element in the array meets the criteria
+
+.forEach(item => {}): for iteration
+
+.push()/.pop(): adds new element and returns new length & removes and returns last element
 
 ---
 Functions
@@ -233,6 +253,20 @@ ALTERATION:
     element.setAttribute('style', 'color: blue; background: white;'); 
 
 
+---
+Python-like custom range()
+
+function* range(start, stop, step = 1) {
+    if (stop == null) {
+        // one param defined
+        stop = start;
+        start = 0;
+    }
+
+    for (let i = start; step > 0 ? i < stop : i > stop; i += step) {
+        yield i;
+    }
+}
 
 
 ---
