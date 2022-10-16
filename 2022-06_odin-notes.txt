@@ -1,3 +1,0 @@
-THE ODIN PROJECT Notes
----
-JavaScript exercises

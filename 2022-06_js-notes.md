@@ -1,15 +1,14 @@
-JS Notes
----
-General
+# JS Notes
 
-you can add to html via <script>...</script>
-or <script src="kek.js"></script> (notice that it's not self-closing)
+## General
 
-console.log() is the print function
-alert("anam") is a popup function
-there is also window.prompt(), which will ask user input
+You can add to html via the two following: 
+```html
+<script>console.log("kek")</script>
+<script src="kek.js"></script> 
+```
 
-"use strict"
+either put the script in the body, or put it in the head and defer
 
 myNum.toFixed(x) will round to X decimal places
 1.943132.toFixed(2) = 1.94
@@ -17,67 +16,54 @@ myNum.toFixed(x) will round to X decimal places
 
 
 ---
-Data types
 
-8 types: number, bigint, bool, string, object, null, undefined, special
+## Data types
+
+8 types: number, bigint, bool, string, object, null, undefined, special.
+
 typeof() gives type, === compares value AND type
 
-[NUMBER & BIGINT]
-    JS does NOT define different types of numbers,
-    it's one type (Number) and is 64-bit floating point (actually there's bigint but don't think about it too much)
-    accurate up to 15 digits, but for decimals multiply & divide back
+### NUMBER & BIGINT
 
-    !! Number(250) is not the same as new Number(250)
-    Number() tries to convert into number (like toString)
+JS does NOT define different types of numbers, it's one type (Number) and is 64-bit floating point.
 
-    div by zero returns Infinity, string as operand returns NaN
-    both are of type number
+There's also BigInt (came in handy for Project Euler exercises).
 
-    UNARY PLUS: converts other type into num
-    +true === 1, +false === 0
+!! Number(250) is not the same as new Number(250)
+Number() tries to convert into number (like toString)
 
-[STRING]
-    different from java: not an object, and char type doesn't exist
+Division by zero returns Infinity, string as operand returns NaN. Both are of type number.
 
-[UNDEFINED & NULL]
-    undefined is when a var is initialized
-    whereas null is for "empty" values
-    do NOT use myVar = undefined
-    null == undefined (true), null !== undefined (true)
+UNARY PLUS: converts other type into num
++true === 1, +false === 0
 
-[BOOL]
-    Boolean(myVal) to check if value is truthy or not
-    all strings except "" (empty) are truthy ("false" too)
-    all numbers except 0 are truthy (-1 too)
+### STRING
 
+Different from java: not an object, and char type doesn't exist
 
----
-Conventions
+### UNDEFINED and NULL
 
-let/const:
-    camelCase variables
-    SCREAMING_SNAKE constants
+Undefined is when a var is initialized, whereas null is for "empty" values.
 
-common function syntax:
-    showMessage(..)     // shows a message
-    getAge(..)          // returns the age (gets it somehow)
-    calcSum(..)         // calculates a sum and returns the result
-    createForm(..)      // creates a form (and usually returns it)
-    checkPermission(..) // checks a permission, returns true/false
+Do NOT use `myVar = undefined`.
+
+null == undefined (true), null !== undefined (true)
+
+### BOOLEAN
+
+`Boolean(myVal)` to check if value is truthy or not.
+
+All strings except "" (empty) are truthy ("false" etc as well).  
+All numbers except 0 are truthy (-1 too).  
+Empty arrays are still truthy.
 
 
 ---
-String Manipulation
+## String Manipulation
 
 \ is your escape character as always
 
-` (backtick) is for "template literals":
-    `hello` is the same as "hello
-    but ` can do `Hello, ${name}`, which is not supported in IE, who cares about IE
-    the result is a concatenated string, still a string
-
-template literals can accept expressions (`${myVar + 10}`)
-they also respect line breaks
+template literals: ``
 
 slice(from, to), includes from but not to
     "pompy".slice(0, 4) will evaluate to "pomp"
