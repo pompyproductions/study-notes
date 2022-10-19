@@ -1,88 +1,105 @@
-GIT NOTES
+# GIT NOTES
+
+## Installation (LINUX)
+
+through apt:  
+```bash
+$ sudo apt update  
+$ sudo apt upgrade  
+
+$ sudo add-apt-repository ppa:git-core/ppa
+$ sudo apt update
+$ sudo apt install git
+```
+
+then verify with `git --version`
+
 ---
-Installation
+## Config & Credentials
 
-through apt:
-sudo apt update
-sudo apt upgrade
+```bash
+# this will open in the configured editor (core.editor)
+$ git config --global --edit
 
-sudo add-apt-repository ppa:git-core/ppa
-sudo apt update
-sudo apt install git
+$ git config --global user.name "blabla"
+$ git config --global user.email "blabla@lablab.com"
+$ git config --global color.ui auto
+$ git config --global core.editor "code --wait"
 
-then verify with git --version
-
-
----
-Config & Credentials
-
-git config --global --edit
-this will open in the configured editor (core.editor)
-
-git config --global user.name "blabla"
-git config --global user.email "blabla@lablab.com"
-git config --global color.ui auto
-git config --global core.editor "code --wait"
-
-default branch should be main, not master:
+# default branch should be main, not master:
 git config --global init.defaultBranch main
 
-to check them later on:
+# to check them later on:
 git config --get (...)
+```
 
-ssh setup: (also on https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-check if you have an ssh key already by ls ~/.ssh/id_ed25519.pub
-if not, ssh-keygen -t ed25519 -C [email address];
-then on github navigate to Settings > SSH and[...] > new ssh key
-cat [ssh directory], then copy paste (including email)
+### ssh setup:  
+(also on [GitHub docs: Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh))
+
+```bash
+# check if you already have an ssh key
+$ ls ~/.ssh/id_ed25519.pub
+
+# if not, generate one, and copy the contents
+$ ssh-keygen -t ed25519 -C [email address]
+$ cat ~/.ssh/id_ed25519.pub
+```
+
+then on github navigate to "Settings > SSH and [...] > new ssh key"  
+paste the SSH key in there (including the email)
 
 verify that ssh works correctly:
-ssh -T git@github.com
-verify the fingerprint that comes up in the prompt:
-https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints
+
+```bash
+$ ssh -T git@github.com
+```
+
+verify the fingerprint that comes up in the prompt:  
+[GitHub docs: SSH Key Fingerprints](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints)  
+
 if it is correct, proceed
 
 
 ---
-Basic Git Workflow
+## Basic Git Workflow
 
 Three states of Git:
-Working directory | Staging area | Repository
-(modified)          (staged)       (committed)
+- Working directory _(modified)_
+- Staging area _(staged)_
+- Repository _(committed)_
 
-git status to check the situation
-git add . will add all files to staging area (otherwise just type file name)
-git commit on its own will open the text editor for the message.
+`git status` to check the situation  
+`git add .` will add all files to staging area (otherwise just type file name)  
+`git commit` on its own will open the text editor for the message.  
 
-if it's a short commit with just a subject you could add -m "commit message"
-or also directly git commit -am "message" to not go through staging
+if it's a short commit with just a subject you could do `git commit -m "commit message"`  
+or also directly `git commit -am "message"` to not go through staging
 
-git log to check commits
-add --oneline to see just the subjects of the commits
--<number> will limit the display to that many commits
-    (git slog, alias by yours truly)
-    more about pretty logs below
+`git log` to check commits  
+add `--oneline` to see just the subjects of the commits  
+`-<number>` will limit the display to that many commits  
 
-git push will update the server
-git push origin main would be the long version, in case of branches
-
-code . will open the directory in new window
--a argument adds it to the last active window!
+`git push` will update the server
+`git push origin main` would be the long version, in case of branches
 
 
 ---
-New Repository
+## New Repository
 
-create a new repo on github (enable README.md)
-navigate to Code (green button) > Clone > SSH, copy the key
-(git@github.com:USER-NAME/REPOSITORY-NAME.git)
+Two ways to go about it:
+1. Create a GitHub repo and clone it on your computer.
+2. Create a Git repo locally, then push it to a new empty GitHub repo.
 
-then go to terminal, cd into wherever you want your repo folder, 
-then git clone [paste key]. git status to check if all good (also git remote -v)
+create a new repo on github (enable README.md)  
+navigate to Code (green button) > Clone > SSH, copy the key  
+(git@github.com:USER-NAME/REPOSITORY-NAME.git)  
 
-alternatively, create a new repo locally (mkdir, git init, touch README.md)
-then create new repo
-then import repo to github
+then go to terminal, cd into wherever you want your repo folder,  
+then git clone [paste key]. git status to check if all good (also git remote -v)  
+
+alternatively, create a new repo locally (mkdir, git init, touch README.md)  
+then create new repo  
+then import repo to github  
 
 
 ---
@@ -148,38 +165,40 @@ DON'T MESS WITH git reset --hard; it is highly destructive
 
 
 ---
-Swapping Branches
+## Branches
 
-git branch lists branches (-a for all)
-git branch <branchname> will create new branch locally
+`git branch` lists branches (-a for all)  
+`git branch <branchname>` will create new branch locally  
 
-git checkout for changing branches
-add -b <branchname> to make a new one locally
-git push -u origin <branchname> to create the new branch on remote as well
+`git checkout` for changing branches  
+`git checkout -b <branchname>` creates a new branch and checkout into it  
+`git push -u origin <branchname>` to create the new branch on remote as well  
 
-to return, git checkout main
+to return, `git checkout main`
 
-git merge <branchname> takes the changes from <branchname>
-and puts them inside your CURRENT BRANCH
-after merging, git branch -d <branchname> to delete 
-then git push origin --delete <branchname> to delete from github
+`git merge <branchname>` takes the changes from `<branchname>`  
+and puts them inside your **CURRENT BRANCH**
 
-migrating from master to main
+after merging, `git branch -d <branchname>` to delete  
+then `git push origin --delete <branchname>` to delete from github
 
-    - create main branch locally, taking the history from master
-    git branch -m master main
+**migrating from master to main:**
 
-    - push the new local main branch to the remote repo (GitHub) 
-    git push -u origin main
+> - create main branch locally, taking the history from master
+> git branch -m master main
+> 
+> - push the new local main branch to the remote repo (GitHub) 
+> git push -u origin main
+> 
+> - switch the current HEAD to the main branch
+> git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+> 
+> - change the default branch on GitHub to main
+> - https://docs.github.com/en/github/administering-a-repository/setting-the-default-branch
+> 
+> - delete the master branch on the remote
+> git push origin --delete master
 
-    - switch the current HEAD to the main branch
-    git symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-
-    - change the default branch on GitHub to main
-    - https://docs.github.com/en/github/administering-a-repository/setting-the-default-branch
-
-    - delete the master branch on the remote
-    git push origin --delete master
 
 
 ---
